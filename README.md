@@ -1,12 +1,12 @@
-# Swagger Backwards Compatibility Check Maven Plugin
+# OpenAPI Backwards Compatibility Check Maven Plugin
 
-The <code>swagger-backwards-compat</code> plugin is a Maven plugin to
-run a backwards compatibility check on a set of Swagger API 2.0 JSON specification
+The <code>openapi-backwards-compat</code> plugin is a Maven plugin to
+run a backwards compatibility check on a set of OpenAPI 3.0 YAML specification
 files. The plugin can be integrated into various phases of a maven build to check
-that any changes to a set of Swagger .json files are backwards compatible.
+that any changes to a set of OpenAPI .yml files are backwards compatible.
 This ensures that these changes do not impact existing users that haven't had a
 chance to update to these latest changes. .lock files are created to keep
-track of the state of the .json files. This file is updated when a non-breaking change
+track of the state of the .yml files. This file is updated when a non-breaking change
 is made, and should be checked in along with any other changes.
 
 It is also possible to force any breaking changes and reset the current state
@@ -19,14 +19,14 @@ plugin is run.
 <build>
     <plugins>
         <plugin>
-            <groupId>io.kemtoa.swagger</groupId>
-            <artifactId>swagger-backwards-compat-maven-plugin</artifactId>
+            <groupId>io.kemtoa.openapi</groupId>
+            <artifactId>openapi-backwards-compat-maven-plugin</artifactId>
             <version>1.0.0</version>
             <configuration>
-                <!-- Optional alternate .json Swagger spec location -->
-                <swaggerSourceDir>${basedir}/src/main/swagger</swaggerSourceDir>
-                <!-- Optional alternate .lock reference Swagger spec location -->
-                <swaggerLockDir>${basedir}/src/main/swagger</swaggerLockDir>
+                <!-- Optional alternate .json OpenAPI spec location -->
+                <openApiSourceDir>${basedir}/src/main/openapi</openApiSourceDir>
+                <!-- Optional alternate .lock reference OpenAPI spec location -->
+                <openApiLockDir>${basedir}/src/main/openapi</openApiLockDir>
             </configuration>
             <executions>
                 <execution>

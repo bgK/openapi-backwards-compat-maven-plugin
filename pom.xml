@@ -2,14 +2,14 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.kemtoa.swagger</groupId>
-  <artifactId>swagger-backwards-compat-maven-plugin</artifactId>
+  <groupId>io.kemtoa.openapi</groupId>
+  <artifactId>openapi-backwards-compat-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
 
-  <name>Swagger Backwards Compatibility Maven Plugin</name>
-  <description>A Maven plugin for analyzing Swagger API Specs backwards compatible changes.</description>
-  <url>https://github.com/bgK/swagger-backwards-compat-maven-plugin</url>
+  <name>OpenAPI Backwards Compatibility Maven Plugin</name>
+  <description>A Maven plugin for analyzing OpenAPI API Specs backwards compatible changes.</description>
+  <url>https://github.com/bgK/openapi-backwards-compat-maven-plugin</url>
 
   <licenses>
     <license>
@@ -27,16 +27,16 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/bgK/swagger-backwards-compat-maven-plugin.git</connection>
-    <developerConnection>scm:git:ssh://github.com:bgK/swagger-backwards-compat-maven-plugin.git</developerConnection>
-    <url>http://github.com/bgK/swagger-backwards-compat-maven-plugin/tree/master</url>
+    <connection>scm:git:git://github.com/bgK/openapi-backwards-compat-maven-plugin.git</connection>
+    <developerConnection>scm:git:ssh://github.com:bgK/openapi-backwards-compat-maven-plugin.git</developerConnection>
+    <url>http://github.com/bgK/openapi-backwards-compat-maven-plugin/tree/main</url>
   </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     <maven.version>3.3.9</maven.version>
   </properties>
 
@@ -69,19 +69,31 @@
     </dependency>
 
     <dependency>
-      <groupId>io.swagger</groupId>
-      <artifactId>swagger-core</artifactId>
-      <version>1.5.22</version>
+      <groupId>io.swagger.core.v3</groupId>
+      <artifactId>swagger-core-jakarta</artifactId>
+      <version>2.2.19</version>
     </dependency>
+
     <dependency>
-      <groupId>io.swagger</groupId>
-      <artifactId>swagger-models</artifactId>
-      <version>1.5.22</version>
-    </dependency>
-    <dependency>
-      <groupId>io.swagger</groupId>
+      <groupId>io.swagger.parser.v3</groupId>
       <artifactId>swagger-parser</artifactId>
-      <version>1.0.44</version>
+      <version>2.1.19</version>
+      <exclusions>
+        <!-- Exclude unused v2 -> v3 conversion feature -->
+        <exclusion>
+          <groupId>io.swagger.parser.v3</groupId>
+          <artifactId>swagger-parser-v2-converter</artifactId>
+        </exclusion>
+        <!-- Prefer jakarta dependencies to javax -->
+        <exclusion>
+          <groupId>io.swagger.core.v3</groupId>
+          <artifactId>swagger-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>io.swagger.core.v3</groupId>
+          <artifactId>swagger-models</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <!-- Dependencies For Testing -->

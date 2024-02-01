@@ -1,0 +1,42 @@
+openapi: 3.0.1
+info:
+  title: Bug demo
+  description: Recursive object definitions cause problems
+  version: 0.1.0
+servers:
+  - url: /
+paths:
+  /resources/widget/{code}:
+    get:
+      summary: View a single widget
+      parameters:
+        - name: code
+          in: path
+          description: The CODE value for a widget
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Widget local content (without parents or descendents)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/widget'
+        "404":
+          description: The widget does not exist
+          content: {}
+components:
+  schemas:
+    widget:
+      type: object
+      properties:
+        name:
+          maxLength: 50
+          minLength: 1
+          type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/widget'
+      description: A widget which may have multiple generations of child widgets

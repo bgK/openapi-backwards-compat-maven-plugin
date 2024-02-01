@@ -1,0 +1,42 @@
+openapi: 3.0.1
+servers:
+  - url: /
+paths:
+  /users/{userId}:
+    get:
+      summary: Returns a user by ID.
+      parameters:
+        - name: userId
+          in: path
+          description: The ID of the user to return.
+          required: true
+          schema:
+            minimum: 1
+            type: integer
+      responses:
+        "200":
+          description: A User object.
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 4
+                  name:
+                    type: string
+                    example: Arthur Dent
+                  age:
+                    type: integer
+                    example: 18
+        "400":
+          description: The specified user ID is invalid (e.g. not a number).
+          content: {}
+        "404":
+          description: A user with the specified ID was not found.
+          content: {}
+        default:
+          description: Unexpected error
+          content: {}
+components: {}
