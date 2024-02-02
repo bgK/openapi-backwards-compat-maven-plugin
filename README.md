@@ -21,7 +21,7 @@ plugin is run.
         <plugin>
             <groupId>io.kemtoa.openapi</groupId>
             <artifactId>openapi-backwards-compat-maven-plugin</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
             <configuration>
                 <!-- Optional alternate .json OpenAPI spec location -->
                 <openApiSourceDir>${basedir}/src/main/openapi</openApiSourceDir>
