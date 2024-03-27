@@ -8,11 +8,13 @@ import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.PathItem;
+import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
+import io.swagger.v3.oas.models.responses.ApiResponses;
 
 /**
  * OpenAPI tool for comparing two specification documents.
@@ -96,14 +98,14 @@ public class OpenApiDiffWalker {
 
             doVisitAndRecurse(visitor, left.getRequestBody(), right.getRequestBody());
 
-            Set<String> leftKeys  = left.getResponses() != null ? left.getResponses().keySet() : new HashSet<>();
-            Set<String> rightKeys = right.getResponses() != null ? right.getResponses().keySet() : new HashSet<>();
+            ApiResponses leftResponses  = left.getResponses() != null ? left.getResponses() : new ApiResponses();
+            ApiResponses rightResponses = right.getResponses() != null ? right.getResponses() : new ApiResponses();
             Stream.concat(
-                    leftKeys.stream(),
-                    rightKeys.stream()
+                    leftResponses.keySet().stream(),
+                    rightResponses.keySet().stream()
             ).distinct().forEach(key -> doVisitAndRecurse(visitor, key,
-                    left.getResponses().get(key),
-                    right.getResponses().get(key))
+                    leftResponses.get(key),
+                    rightResponses.get(key))
             );
         } finally {
             location.popPath();
@@ -138,15 +140,15 @@ public class OpenApiDiffWalker {
                 return;
             }
 
-            Set<String> leftKeys  = left.getContent() != null ? left.getContent().keySet() : new HashSet<>();
-            Set<String> rightKeys = right.getContent() != null ? right.getContent().keySet() : new HashSet<>();
+            Content leftContent  = left.getContent() != null ? left.getContent() : new Content();
+            Content rightContent = right.getContent() != null ? right.getContent() : new Content();
             Stream.concat(
-                    leftKeys.stream(),
-                    rightKeys.stream()
+                    leftContent.keySet().stream(),
+                    rightContent.keySet().stream()
             ).distinct().forEach(mediaTypeKey -> doVisitAndRecurse(
                     visitor, mediaTypeKey,
-                    left.getContent().get(mediaTypeKey),
-                    right.getContent().get(mediaTypeKey))
+                    leftContent.get(mediaTypeKey),
+                    rightContent.get(mediaTypeKey))
             );
 
         } finally {
@@ -171,15 +173,15 @@ public class OpenApiDiffWalker {
                 return;
             }
 
-            Set<String> leftKeys  = left.getContent() != null ? left.getContent().keySet() : new HashSet<>();
-            Set<String> rightKeys = right.getContent() != null ? right.getContent().keySet() : new HashSet<>();
+            Content leftContent  = left.getContent() != null ? left.getContent() : new Content();
+            Content rightContent = right.getContent() != null ? right.getContent() : new Content();
             Stream.concat(
-                    leftKeys.stream(),
-                    rightKeys.stream()
+                    leftContent.keySet().stream(),
+                    rightContent.keySet().stream()
             ).distinct().forEach(mediaTypeKey -> doVisitAndRecurse(
                     visitor, mediaTypeKey,
-                    left.getContent().get(mediaTypeKey),
-                    right.getContent().get(mediaTypeKey))
+                    leftContent.get(mediaTypeKey),
+                    rightContent.get(mediaTypeKey))
             );
 
         } finally {
