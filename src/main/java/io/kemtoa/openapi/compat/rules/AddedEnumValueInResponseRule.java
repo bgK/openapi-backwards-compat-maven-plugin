@@ -8,7 +8,7 @@ package io.kemtoa.openapi.compat.rules;
 public class AddedEnumValueInResponseRule extends Rule {
 
     @Override
-    public void acceptEnumValue(String left, String right) {
+    public <T> void acceptEnumValue(T left, T right) {
         if (left == null && location.isResponse()) {
             addError("The enum value '" + right + "' has been added in the new spec.");
         }

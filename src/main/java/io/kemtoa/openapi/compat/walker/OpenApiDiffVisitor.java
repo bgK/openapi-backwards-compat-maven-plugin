@@ -43,7 +43,7 @@ public interface OpenApiDiffVisitor {
     default void acceptProperty(String key, Schema left, Schema right) {
     }
 
-    default void acceptEnumValue(String left, String right) {
+    default <T> void acceptEnumValue(T left, T right) {
     }
 
     default void setLocation(Location location) {
