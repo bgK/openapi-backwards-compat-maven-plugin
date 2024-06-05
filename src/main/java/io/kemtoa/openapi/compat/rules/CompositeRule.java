@@ -83,7 +83,7 @@ public class CompositeRule extends Rule {
     }
 
     @Override
-    public void acceptEnumValue(String left, String right) {
+    public <T> void acceptEnumValue(T left, T right) {
         rules.forEach(v -> v.acceptEnumValue(left, right));
     }
 }

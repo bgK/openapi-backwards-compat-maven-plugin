@@ -290,8 +290,8 @@ public class OpenApiDiffWalker {
         }
     }
 
-    private void doVisitEnumValues(OpenApiDiffVisitor visitor, List<String> leftValues, List<String> rightValues) {
-        Set<String> enumValues = new HashSet<>();
+    private <T> void doVisitEnumValues(OpenApiDiffVisitor visitor, List<T> leftValues, List<T> rightValues) {
+        Set<T> enumValues = new HashSet<>();
         if (leftValues != null) {
             enumValues.addAll(leftValues);
         }
@@ -299,7 +299,7 @@ public class OpenApiDiffWalker {
             enumValues.addAll(rightValues);
         }
 
-        for (String value : enumValues) {
+        for (T value : enumValues) {
             visitor.acceptEnumValue(
                     leftValues != null && leftValues.contains(value) ? value : null,
                     rightValues != null && rightValues.contains(value) ? value : null

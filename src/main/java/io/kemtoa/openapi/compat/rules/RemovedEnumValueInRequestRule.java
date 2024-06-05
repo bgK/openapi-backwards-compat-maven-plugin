@@ -9,7 +9,7 @@ package io.kemtoa.openapi.compat.rules;
 public class RemovedEnumValueInRequestRule extends Rule {
 
     @Override
-    public void acceptEnumValue(String left, String right) {
+    public <T> void acceptEnumValue(T left, T right) {
         if (right == null && location.isRequest()) {
             addError("The enum value '" + left + "' has been removed in the new spec.");
         }
